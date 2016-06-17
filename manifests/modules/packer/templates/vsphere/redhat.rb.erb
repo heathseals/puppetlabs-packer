@@ -51,8 +51,13 @@ puts '- Re-obtaining DHCP lease...'
     f << "send host-name #{hostname}"
   end
   Kernel.system('/sbin/service NetworkManager restart')
-  Kernel.system('/usr/bin/nmcli con down id ens32')
-  Kernel.system('/usr/bin/nmcli con up id ens32')
+  <% if @operatingsystemmajrelease == '24' -%>
+    Kernel.system('/usr/bin/nmcli con down id "System ens32"')
+    Kernel.system('/usr/bin/nmcli con up id "System ens32"')
+  <% else -%>
+    Kernel.system('/usr/bin/nmcli con down id ens32')
+    Kernel.system('/usr/bin/nmcli con up id ens32')
+  <% end -%>
 <% end -%>
 
 puts '- Cleaning up...'
