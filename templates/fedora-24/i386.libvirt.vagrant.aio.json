@@ -5,11 +5,15 @@
       "template_name": "fedora-24-i386",
       "version": "0.0.1",
 
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "21f3640e892c44211b269a763a2f44fbee4f7a591cfdf171987b855ad2d7e782",
+
+      "memory_size": "512",
+      "cpu_count": "1",
+
       "provisioner": "libvirt",
       "required_modules": "puppetlabs-stdlib saz-sudo",
-      "puppet_aio": "http://yum.puppetlabs.com/fedora/f23/PC1/i386/puppet-agent-1.5.2-1.fedoraf23.i386.rpm",
-      "memory_size": "512",
-      "cpu_count": "1"
+      "puppet_aio": "http://yum.puppetlabs.com/fedora/f23/PC1/i386/puppet-agent-1.5.2-1.fedoraf23.i386.rpm"
 
     },
 
@@ -25,8 +29,8 @@
       "disk_interface": "virtio-scsi",
       "disk_image": "true",
       "iso_url": "./output-{{user `template_name`}}-{{user `provisioner`}}/packer-{{user `template_name`}}-{{user `provisioner`}}",
-      "iso_checksum_type": "sha256",
-      "iso_checksum": "21f3640e892c44211b269a763a2f44fbee4f7a591cfdf171987b855ad2d7e782",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
       "ssh_username": "root",
       "ssh_password": "puppet",
       "ssh_port": 22,
