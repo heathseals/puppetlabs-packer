@@ -2,18 +2,18 @@
 
   "variables":
     {
-      "template_name": "fedora-24-x84_64",
+      "template_name": "fedora-24-i386",
       "version": "0.0.1",
 
-      "iso_checksum_type": "sha256",
-      "iso_checksum": "d8c206ff681bae905f578ebe766d81772f1041fd3603c063e1a7277e69d2129d",
+      "iso_checksum_type": "none",
+      "iso_checksum": "",
 
       "memory_size": "512",
       "cpu_count": "1",
 
       "provisioner": "libvirt",
       "required_modules": "puppetlabs-stdlib saz-sudo",
-      "puppet_aio": "https://yum.puppetlabs.com/fedora/f23/PC1/x86_64/puppet-agent-1.5.2-1.fedoraf23.x86_64.rpm"
+      "puppet_aio": "http://yum.puppetlabs.com/fedora/f24/PC1/i386/puppet-agent-1.5.3-1.fedoraf24.i386.rpm"
 
     },
 
@@ -67,7 +67,7 @@
         "provisioner": "{{user `provisioner`}}"
       },
       "manifest_dir": "../../manifests",
-      "manifest_file": "../../manifests/vagrant/nocm.pp"
+      "manifest_file": "../../manifests/vagrant/puppet.pp"
     },
 
     {
@@ -86,7 +86,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "/opt/output/{{.Provider}}/{{user `template_name`}}-{{.Provider}}-aio.box"
+      "output": "/opt/output/{{.Provider}}/{{user `template_name`}}-{{.Provider}}-puppet.box"
     }
   ]
 

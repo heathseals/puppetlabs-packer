@@ -14,7 +14,7 @@
 
       "provisioner": "libvirt",
       "required_modules": "puppetlabs-stdlib saz-ssh",
-      "puppet_aio": "https://yum.puppetlabs.com/fedora/f23/PC1/x86_64/puppet-agent-1.5.2-1.fedoraf23.x86_64.rpm"
+      "puppet_aio": "https://yum.puppetlabs.com/fedora/f24/PC1/x86_64/puppet-agent-1.5.3-1.fedoraf24.x86_64.rpm"
     },
 
   "builders": [
