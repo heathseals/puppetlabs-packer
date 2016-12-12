@@ -3,6 +3,7 @@
   "variables":
     {
       "template_name": "debian-9.0-x86_64",
+      "vsphere_name": "debian-9-x86_64",
       "version": "0.0.1",
 
       "provisioner": "vmware",
@@ -19,8 +20,11 @@
       "packer_vcenter_net": "{{env `PACKER_VCENTER_NET`}}",
       "packer_vcenter_insecure": "{{env `PACKER_VCENTER_INSECURE`}}",
 
-      "memory_size": "4096",
-      "cpu_count": "2"
+      "memory_size": "2048",
+      "cpu_count": "2",
+
+      "output_directory": "{{env `OUTPUT_DIRECTORY`}}"
+
     },
 
   "builders": [
@@ -29,16 +33,20 @@
       "vm_name": "packer-{{build_name}}",
       "type": "vmware-vmx",
       "headless": true,
-      "source_path": "output-{{user `template_name`}}-{{user `provisioner`}}/packer-{{user `template_name`}}-{{user `provisioner`}}.vmx",
+      "source_path": "{{user `output_directory`}}output-{{user `template_name`}}-{{user `provisioner`}}/packer-{{user `template_name`}}-{{user `provisioner`}}.vmx",
       "ssh_username": "root",
       "ssh_password": "puppet",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "/sbin/halt -h -p",
+      "vmx_data": {
+        "annotation": "{{user `template_name`}}-{{user `version`}} built {{isotime}}"
+      },
       "vmx_data_post": {
+        "cpuid.coresPerSocket": "1",
         "memsize": "{{user `memory_size`}}",
         "numvcpus": "{{user `cpu_count`}}",
-        "cpuid.coresPerSocket": "1"
+        "ethernet0.virtualDev": "vmxnet3"
       }
     }
   ],
@@ -98,7 +106,7 @@
       "cluster": "{{user `packer_vcenter_cluster`}}",
       "datastore": "{{user `packer_vcenter_datastore`}}",
       "vm_folder": "{{user `packer_vcenter_folder`}}",
-      "vm_name": "{{user `template_name`}}-{{user `version`}}",
+      "vm_name": "{{user `vsphere_name`}}",
       "vm_network": "{{user `packer_vcenter_net`}}",
       "insecure" : "{{user `packer_vcenter_insecure`}}"
     }
